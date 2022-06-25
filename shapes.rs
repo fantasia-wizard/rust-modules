@@ -18,9 +18,24 @@ impl Rectangle{
 	}
 	pub fn overlaps(&self, target: Rectangle) -> bool {
 		return Vec2(self.top_left.0, self.bottom_right.0).intersects(
-			Vec2(target.top_left.0, target.bottom_right.0)) and 
+			Vec2(target.top_left.0, target.bottom_right.0)) && 
 			Vec2(self.top_left.1, self.bottom_right.1).intersects(
 				Vec2(target.top_left.1, target.bottom_right.1));
+	}
+	pub fn display(&self){
+		let points_x: Vec<i32> = (self.top_left.0..self.bottom_right.0).collect::<Vec<i32>>();
+		let points_y: Vec<i32> = (self.top_left.1..self.bottom_right.1).collect::<Vec<i32>>();
+		for y in -10..10{
+			for x in -10..10{
+				if points_x.contains(&&x) && points_y.contains(&&y){
+					print!("{}", '█')
+				}
+				else{
+					print!(" ")
+				}
+			}
+			print!("\n")
+		}
 	}
 }
 
