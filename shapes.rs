@@ -37,6 +37,15 @@ impl Rectangle{
 			print!("\n")
 		}
 	}
+	pub fn points(&self) -> Vec<Vec<i32>>{
+		let mut points: Vec<Vec<i32>> = [].to_vec();
+		for x in self.top_left.0..self.bottom_right.0{
+			for y in self.top_left.1..self.bottom_right.1{
+				points.push([x, y].to_vec())
+			}
+		}
+		return points
+	}
 }
 
 impl Vec2{
@@ -67,5 +76,45 @@ impl Display for Rectangle{
 impl Display for Vec2{
 	fn fmt(&self, f: &mut Formatter) -> Result{
 		write!(f, "({}, {})", self.0, self.1)
+	}
+}
+
+//Not working with multiple rectangles yet.  Working on a different implementation.
+//pub fn display_rects(rects: Vec<Rectangle>){
+//	let mut points_x: Vec<i32> = [].to_vec();
+//	let mut points_y: Vec<i32> = [].to_vec();
+
+//	for i in rects{
+//		points_x.extend((i.top_left.0..i.bottom_right.0).collect::<Vec<i32>>().iter());
+//		points_y.extend((i.top_left.1..i.bottom_right.1).collect::<Vec<i32>>().iter());
+//	}
+//	for y in -10..10{
+//		for x in -10..10{
+//			if points_x.contains(&&x) && points_y.contains(&&y){
+//				print!("{0}{0}", '█')
+//			}
+//			else{
+//				print!("  ")
+//			}
+//		}
+//		print!("\n")
+//	}
+//}
+
+pub fn display_rects(rects: Vec<Rectangle>){
+	let mut points: Vec<Vec<i32>> = [].to_vec();
+	for rect in rects{
+		points.extend(rect.points())
+	}
+		for y in -10..10{
+			for x in -10..10{
+				if points.contains(&vec![x, y]) {
+					print!("{0}{0}", '█')
+				}
+				else{
+					print!("  ")
+				}
+			}
+		print!("\n")
 	}
 }
